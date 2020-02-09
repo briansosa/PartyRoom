@@ -12,7 +12,7 @@ namespace DatabaseImplementation
         public int Add(Event eventModel)
         {
             events.Add(eventModel);
-            return 1;
+            return 2;
         }
 
         public void Delete(int id)
