@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using DatabaseInterface;
-using Domain;
+using Domain.Entities;
 using System;
+using Domain.Contracts;
 
 namespace DatabaseImplementation
 {

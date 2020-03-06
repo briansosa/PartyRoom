@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using DatabaseImplementation;
-using DatabaseInterface;
+using Domain.Contracts;
 using Business;
 
 namespace Infraestructure

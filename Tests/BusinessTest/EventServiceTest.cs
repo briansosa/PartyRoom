@@ -4,8 +4,8 @@ using Moq;
 using Business;
 using DTO;
 using System;
-using Domain;
-using DatabaseInterface;
+using Domain.Entities;
+using Domain.Contracts;
 using System.Collections.Generic;
 
 namespace BusinessTest

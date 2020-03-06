@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Domain;
+using Domain.Entities;
 
-namespace DatabaseInterface
+namespace Domain.Contracts
 {
     public interface IEventRepository
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DatabaseInterface;
-using Domain;
+using Domain.Entities;
+using Domain.Contracts;
 using DTO;
 
 namespace Business
