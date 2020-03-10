@@ -15,7 +15,7 @@ namespace BusinessTest
         public Mock<IEventRepository> IEventRepositoryMock = new Mock<IEventRepository>();
 
         [Fact]
-        public void EventService_Add_Return_1(){
+        public void Add_Return_1(){
             // Arrange
             DtoEventRequest dto = new DtoEventRequest(){
                 Name = "Pepe",
@@ -32,7 +32,7 @@ namespace BusinessTest
         }
 
         [Fact]
-        public void EventService_GetAllEventForRepository()
+        public void Get_GetAllEventForRepository()
         {
             // Arrange
             DateTime start = DateTime.Now;
@@ -56,6 +56,19 @@ namespace BusinessTest
             List<DtoEventResponse> listDtos = eventService.Get();
             // Assert
             listDtos.Should().BeEquivalentTo(listResponse);
+        }
+
+        [Fact]
+        public void Delete_CheckCallDeleteMethodFromRepository()
+        {
+            // Arrange
+            int id = 3;
+            IEventRepositoryMock.Setup(p => p.Delete(It.IsAny<int>()));
+            EventService eventService = new EventService(IEventRepositoryMock.Object);
+            // Act
+            eventService.Delete(id);
+            // Assert
+            IEventRepositoryMock.Verify(m => m.Delete(It.IsAny<int>()), Times.Once);
         }
     }
 }
