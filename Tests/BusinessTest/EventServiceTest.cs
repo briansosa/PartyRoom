@@ -17,7 +17,7 @@ namespace BusinessTest
         [Fact]
         public void EventService_Add_Return_1(){
             // Arrange
-            DtoEvent dto = new DtoEvent(){
+            DtoEventRequest dto = new DtoEventRequest(){
                 Name = "Pepe",
                 DateStart = DateTime.Now,
                 DateFinish = DateTime.Now.AddDays(1)  
@@ -50,7 +50,7 @@ namespace BusinessTest
                     DateStart = start,
                     DateFinish = finish
                 });
-            IEventRepositoryMock.Setup(p => p.Get()).Returns(listEvents);
+            IEventRepositoryMock.Setup(p => p.GetAll()).Returns(listEvents);
             EventService eventService = new EventService(IEventRepositoryMock.Object);
             // Act
             List<DtoEventResponse> listDtos = eventService.Get();

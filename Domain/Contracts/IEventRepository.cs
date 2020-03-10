@@ -7,7 +7,7 @@ namespace Domain.Contracts
     {
         int Add(Event eventModel);
         void Delete(int id);
-        void Put(Event eventModel);
-        List<Event> Get();
+        int Put(Event eventModel);
+        List<Event> GetAll();
     } 
 }

@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using DatabaseImplementation;
+using Database.Implementations;
 using Domain.Contracts;
 using Business;
 

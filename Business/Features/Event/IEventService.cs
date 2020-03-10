@@ -6,9 +6,9 @@ namespace Business
 {
     public interface IEventService
     {
-        int Add(DtoEvent eventModel);
+        int Add(DtoEventRequest eventModel);
         void Delete(int id);
-        void Put(DtoEvent eventModel);
+        int Put(DtoEventRequest eventModel);
         List<DtoEventResponse> Get();
     }
 }

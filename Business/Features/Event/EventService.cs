@@ -15,7 +15,7 @@ namespace Business
             this.repository = repo;
         }
 
-        public int Add(DtoEvent dtoEvent){
+        public int Add(DtoEventRequest dtoEvent){
             var eventData = new Event{
                 Name = dtoEvent.Name,
                 DateStart = dtoEvent.DateStart,
@@ -30,20 +30,20 @@ namespace Business
             this.repository.Delete(id);
         }
 
-        public void Put(DtoEvent eventModel)
+        public int Put(DtoEventRequest eventModel)
         {
             var eventData = new Event {
-                // ACA DEBERIA IR EL ID? EN EL DOMINIO SE PONE EL ID?
-                //Id = eventModel.Id,
+                Id = eventModel.Id,
+                Name = eventModel.Name,
                 DateStart = eventModel.DateStart,
                 DateFinish = eventModel.DateFinish
             };
-            this.repository.Put(eventData);
+            return this.repository.Put(eventData);
         }
 
         public List<DtoEventResponse> Get()
         {
-            var events = this.repository.Get();
+            var events = this.repository.GetAll();
             var eventsResponse = events.Select(eventElem =>
                 new DtoEventResponse 
                 {

@@ -6,9 +6,10 @@ namespace Database.Config
     public class EventConfiguration : BaseEntityTypeConfiguration<Event>
     {
 
-        public void Configure(EntityTypeBuilder<Event> builder)
+        public override void Configure(EntityTypeBuilder<Event> builder)
         {
             builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             base.Configure(builder);
 
@@ -17,13 +18,5 @@ namespace Database.Config
                 .IsRequired();
         }
     }
-
-    //public class Event : IBaseEntity
-    //{
-    //    [Key]
-    //    public int Id { get; set; }
-    //    public DateTime CreatedOn { get; set; } = DateTime.Now;
-    //    public bool IsDeleted { get; set; } = false;    
-    //}
 }
 

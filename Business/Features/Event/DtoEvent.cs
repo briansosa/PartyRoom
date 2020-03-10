@@ -9,8 +9,9 @@ namespace DTO
         public DateTime DateFinish { get; set; }
     }
 
-    public class DtoEvent
+    public class DtoEventRequest
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateFinish { get; set; }

@@ -29,10 +29,23 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public int Post([FromBody] DtoEvent dtoEvent)
+        public int Post([FromBody] DtoEventRequest dtoEvent)
         {
             int id = eventService.Add(dtoEvent);
             return id;
+        }
+
+        [HttpPut]
+        public int Put([FromBody] DtoEventRequest dtoEvent)
+        {
+            int id = eventService.Put(dtoEvent);
+            return id;
+        }
+
+        [HttpDelete]
+        public void Delete([FromBody] DtoEventRequest dtoEvent)
+        {
+            eventService.Delete(dtoEvent.Id);
         }
     }
 }
