@@ -1,21 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "..\Domain\Domain.csproj", "{426C78A0-F798-4AFF-B728-8B6716F3C6E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "..\Domain\Domain.csproj", "{426C78A0-F798-4AFF-B728-8B6716F3C6E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "..\Business\Business.csproj", "{F3928D43-6F59-4525-87FA-BC873C27BF63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "..\Business\Business.csproj", "{F3928D43-6F59-4525-87FA-BC873C27BF63}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7342E2B2-0920-4715-85A9-6659CF9E9707} = {7342E2B2-0920-4715-85A9-6659CF9E9707}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "..\Repositories\Repositories.csproj", "{F49DD1C2-95CC-4FAA-9245-2B93B6C8E229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "..\Repositories\Repositories.csproj", "{F49DD1C2-95CC-4FAA-9245-2B93B6C8E229}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.csproj", "{7342E2B2-0920-4715-85A9-6659CF9E9707}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "..\Common\Common.csproj", "{7342E2B2-0920-4715-85A9-6659CF9E9707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "..\Web\Web.csproj", "{D943FCD1-A675-44B8-B64E-D39E8429FDAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "..\Web\Web.csproj", "{D943FCD1-A675-44B8-B64E-D39E8429FDAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraestructure", "..\Infraestructure\Infraestructure.csproj", "{9DC445FD-7FBC-40F4-9256-B822E4477195}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraestructure", "..\Infraestructure\Infraestructure.csproj", "{9DC445FD-7FBC-40F4-9256-B822E4477195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessTest", "..\Tests\BusinessTest\BusinessTest.csproj", "{6B73B8C0-774A-4EB4-AB6F-AE1F740C1BA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessTest", "..\Tests\BusinessTest\BusinessTest.csproj", "{6B73B8C0-774A-4EB4-AB6F-AE1F740C1BA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,9 +28,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{426C78A0-F798-4AFF-B728-8B6716F3C6E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,5 +114,11 @@ Global
 		{6B73B8C0-774A-4EB4-AB6F-AE1F740C1BA0}.Release|x64.Build.0 = Release|Any CPU
 		{6B73B8C0-774A-4EB4-AB6F-AE1F740C1BA0}.Release|x86.ActiveCfg = Release|Any CPU
 		{6B73B8C0-774A-4EB4-AB6F-AE1F740C1BA0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {831EEE9C-2F9B-4908-B319-099F76E5FAD6}
 	EndGlobalSection
 EndGlobal

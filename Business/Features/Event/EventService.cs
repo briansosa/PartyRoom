@@ -4,6 +4,7 @@ using System.Linq;
 using Domain.Entities;
 using Domain.Contracts;
 using DTO;
+using Common.Functional;
 
 namespace Business
 {
@@ -15,8 +16,10 @@ namespace Business
             this.repository = repo;
         }
 
-        public int Add(DtoEventRequest dtoEvent){
-            var eventData = new Event{
+        public int Add(DtoEventRequest dtoEvent)
+        {
+            var eventData = new Event
+            {
                 Name = dtoEvent.Name,
                 DateStart = dtoEvent.DateStart,
                 DateFinish = dtoEvent.DateFinish
@@ -25,14 +28,16 @@ namespace Business
             return id;
         }
 
-        public void Delete(int id)
+        public Result Delete(int id)
         {
-            this.repository.Delete(id);
+            var result = this.repository.Delete(id);
+            return result;
         }
 
-        public int Put(DtoEventRequest eventModel)
+        public Result<int> Put(DtoEventRequest eventModel)
         {
-            var eventData = new Event {
+            var eventData = new Event
+            {
                 Id = eventModel.Id,
                 Name = eventModel.Name,
                 DateStart = eventModel.DateStart,
@@ -41,17 +46,22 @@ namespace Business
             return this.repository.Put(eventData);
         }
 
-        public List<DtoEventResponse> Get()
+        public Result<List<DtoEventResponse>> Get()
         {
-            var events = this.repository.GetAll();
-            var eventsResponse = events.Select(eventElem =>
-                new DtoEventResponse 
+            var resultDb = this.repository.GetAll();
+            if (resultDb.IsSuccess)
+            {
+                var events = resultDb.Value;
+                var eventsResponse = events.Select(eventElem =>
+                new DtoEventResponse
                 {
                     Name = eventElem.Name,
                     DateStart = eventElem.DateStart,
                     DateFinish = eventElem.DateFinish
                 }).ToList();
-            return eventsResponse;
+                return Result.SuccessWithReturnValue(eventsResponse);
+            }
+            return Result.FailWithDefaultReturnValue<List<DtoEventResponse>>(resultDb.ErrorMessage);
         }
     }
 }

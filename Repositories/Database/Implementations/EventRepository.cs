@@ -3,6 +3,7 @@ using Domain.Entities;
 using System;
 using Domain.Contracts;
 using System.Linq;
+using Common.Functional;
 
 namespace Database.Implementations
 {
@@ -17,29 +18,56 @@ namespace Database.Implementations
         public int Add(Event eventModel)
         {
             context.Add(eventModel);
-            var id = context.SaveChanges();
-            return id;
+            return context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public Result Delete(int id)
         {
-            var eventDb = context.Set<Event>().FirstOrDefault(e => e.Id == id);
-            context.Delete(eventDb);
-            context.SaveChanges();
+            Maybe<Event> eventDb = context.Set<Event>().FirstOrDefault(e => e.Id == id);
+            if (eventDb.HasValue)
+            {
+                context.Delete(eventDb.Value);
+                context.SaveChanges();
+                return Result.Success();
+            }
+            else
+                return Result.Fail("Entity not found");
 
         }
 
-        public List<Event> GetAll()
+        public Result<List<Event>> GetAll()
         {
             var events = context.Set<Event>().ToList();
+            if (events.Count > 0)
+                return Result.SuccessWithReturnValue(events);
+            else
+                return Result.FailWithDefaultReturnValue<List<Event>>("No records found");
+        }
+
+        public Event GetById(int id)
+        {
+            var @event = context.Set<Event>().SingleOrDefault(e => e.Id == id);
+            return @event;
+        }
+
+        public List<Event> GetByFilter(Func<Event, bool> filter)
+        {
+            var events = context.Set<Event>().Where(filter).ToList();
             return events;
         }
 
-        public int Put(Event eventModel)
+        public Result<int> Put(Event eventModel)
         {
-            context.Update<Event>(eventModel);
-            var id = context.SaveChanges();
-            return id;
+            Maybe<Event> maybeEvent = context.Set<Event>().FirstOrDefault(e => e.Id == eventModel.Id);
+            if (maybeEvent.HasValue)
+            {
+                context.Update(eventModel);
+                var id = context.SaveChanges();
+                return Result.SuccessWithReturnValue<int>(id);
+            }
+            else
+                return Result.FailWithDefaultReturnValue<int>("Entity not found");
         }
+
     }
 }

@@ -4,6 +4,7 @@ using Domain.Entities;
 using Database.Config;
 using System.Reflection;
 using System.Linq;
+using Common.Functional;
 
 namespace Database
 {

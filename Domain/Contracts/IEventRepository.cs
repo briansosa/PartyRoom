@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Common.Functional;
 using Domain.Entities;
 
 namespace Domain.Contracts
@@ -6,8 +7,8 @@ namespace Domain.Contracts
     public interface IEventRepository
     {
         int Add(Event eventModel);
-        void Delete(int id);
-        int Put(Event eventModel);
-        List<Event> GetAll();
+        Result Delete(int id);
+        Result<int> Put(Event eventModel);
+        Result<List<Event>> GetAll();
     } 
 }
