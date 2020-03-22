@@ -20,7 +20,6 @@ namespace Database.Implementations
             context.Add(eventModel);
             return context.SaveChanges();
         }
-
         public Result Delete(int id)
         {
             Maybe<Event> eventDb = context.Set<Event>().FirstOrDefault(e => e.Id == id);
@@ -34,28 +33,25 @@ namespace Database.Implementations
                 return Result.Fail("Entity not found");
 
         }
-
         public Result<List<Event>> GetAll()
         {
             var events = context.Set<Event>().ToList();
-            if (events.Count > 0)
-                return Result.SuccessWithReturnValue(events);
-            else
-                return Result.FailWithDefaultReturnValue<List<Event>>("No records found");
+            if (events.Count > 0) return Result.SuccessWithReturnValue(events);
+            else return Result.FailWithDefaultReturnValue<List<Event>>("No records found");
         }
-
-        public Event GetById(int id)
+        public Result<Event> GetById(int id)
         {
-            var @event = context.Set<Event>().SingleOrDefault(e => e.Id == id);
-            return @event;
-        }
+            Maybe<Event> @event = context.Set<Event>().FirstOrDefault(e => e.Id == id);
+            if (@event.HasValue) return Result.SuccessWithReturnValue(@event.Value);
+            else return Result.FailWithDefaultReturnValue<Event>("No record found");
 
-        public List<Event> GetByFilter(Func<Event, bool> filter)
+        }
+        public Result<List<Event>> GetByFilter(Func<Event, bool> filter)
         {
             var events = context.Set<Event>().Where(filter).ToList();
-            return events;
+            if (events.Count > 0) return Result.SuccessWithReturnValue(events);
+            else return Result.FailWithDefaultReturnValue<List<Event>>("No records found");
         }
-
         public Result<int> Put(Event eventModel)
         {
             Maybe<Event> maybeEvent = context.Set<Event>().FirstOrDefault(e => e.Id == eventModel.Id);
