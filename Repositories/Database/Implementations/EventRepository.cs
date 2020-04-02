@@ -57,7 +57,7 @@ namespace Database.Implementations
             Maybe<Event> maybeEvent = context.Set<Event>().FirstOrDefault(e => e.Id == eventModel.Id);
             if (maybeEvent.HasValue)
             {
-                context.Update(eventModel);
+                context.Entry(maybeEvent.Value).CurrentValues.SetValues(eventModel);
                 var id = context.SaveChanges();
                 return Result.SuccessWithReturnValue<int>(id);
             }

@@ -5,19 +5,25 @@ using Domain.Entities;
 using Domain.Contracts;
 using DTO;
 using Common.Functional;
+using Business.Contracts;
+using Business.Features.Event;
 
 namespace Business
 {
     public class EventService : IEventService
     {
         private IEventRepository repository;
-        public EventService(IEventRepository repo)
+        private IValidator validator;
+
+        public EventService(IEventRepository repository, IValidator validator)
         {
-            this.repository = repo;
+            this.repository = repository;
+            this.validator = validator;
         }
 
-        public int Add(DtoEventRequest dtoEvent)
+        public int Add(DtoEventBasicRequest dtoEvent)
         {
+            validator.Validate(new EventValidation(dtoEvent));
             var eventData = new Event
             {
                 Name = dtoEvent.Name,
@@ -36,6 +42,7 @@ namespace Business
 
         public Result<int> Put(DtoEventRequest eventModel)
         {
+            validator.Validate(new PutEventValidator(eventModel));
             var eventData = new Event
             {
                 Id = eventModel.Id,

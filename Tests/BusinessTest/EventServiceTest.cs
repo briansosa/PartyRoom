@@ -7,6 +7,7 @@ using System;
 using Domain.Entities;
 using Domain.Contracts;
 using System.Collections.Generic;
+using Common.Functional;
 
 namespace BusinessTest
 {
@@ -32,7 +33,7 @@ namespace BusinessTest
         }
 
         [Fact]
-        public void Get_GetAllEventForRepository()
+        public void Get_GetAllEventForRepositorySuccess()
         {
             // Arrange
             DateTime start = DateTime.Now;
@@ -50,12 +51,14 @@ namespace BusinessTest
                     DateStart = start,
                     DateFinish = finish
                 });
-            IEventRepositoryMock.Setup(p => p.GetAll()).Returns(listEvents);
+            var resultList = Result.SuccessWithReturnValue(listEvents);
+            IEventRepositoryMock.Setup(p => p.GetAll()).Returns(resultList);
             EventService eventService = new EventService(IEventRepositoryMock.Object);
             // Act
-            List<DtoEventResponse> listDtos = eventService.Get();
+            Result<List<DtoEventResponse>> response = eventService.Get();
             // Assert
-            listDtos.Should().BeEquivalentTo(listResponse);
+            if (response.IsSuccess)
+                response.Value.Should().BeEquivalentTo(listResponse);
         }
 
         [Fact]

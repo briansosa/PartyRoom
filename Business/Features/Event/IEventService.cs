@@ -7,7 +7,7 @@ namespace Business
 {
     public interface IEventService
     {
-        int Add(DtoEventRequest eventModel);
+        int Add(DtoEventBasicRequest eventModel);
         Result Delete(int id);
         Result<int> Put(DtoEventRequest eventModel);
         Result<List<DtoEventResponse>> Get();

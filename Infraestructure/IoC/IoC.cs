@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Database.Implementations;
 using Domain.Contracts;
 using Business;
+using Business.Contracts;
 
 namespace Infraestructure
 {
@@ -12,6 +13,7 @@ namespace Infraestructure
         {
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IValidator, Validator>();
         }
     }
 }

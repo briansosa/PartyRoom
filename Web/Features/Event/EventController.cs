@@ -35,11 +35,8 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public int Post([FromBody] DtoEventRequest dtoEvent)
+        public int Post([FromBody] DtoEventBasicRequest dtoEvent)
         {
-            Guard.Against.NullOrWhiteSpace(dtoEvent.Name, nameof(dtoEvent.Name));
-            Guard.Against.EmptyOrNullDateTime(dtoEvent.DateStart, nameof(dtoEvent.DateStart));
-            Guard.Against.EmptyOrNullDateTime(dtoEvent.DateFinish, nameof(dtoEvent.DateFinish));
             int id = eventService.Add(dtoEvent);
             return id;
         }
@@ -47,10 +44,6 @@ namespace Web.Controllers
         [HttpPut]
         public ActionResult Put([FromBody] DtoEventRequest dtoEvent)
         {
-            Guard.Against.Zero(dtoEvent.Id, nameof(dtoEvent.Id));
-            Guard.Against.NullOrWhiteSpace(dtoEvent.Name, nameof(dtoEvent.Name));
-            Guard.Against.EmptyOrNullDateTime(dtoEvent.DateStart, nameof(dtoEvent.DateStart));
-            Guard.Against.EmptyOrNullDateTime(dtoEvent.DateFinish, nameof(dtoEvent.DateFinish));
             var result = eventService.Put(dtoEvent);
             if (result.IsSuccess) return Ok(result.Value);
             else return BadRequest(result.ErrorMessage);
