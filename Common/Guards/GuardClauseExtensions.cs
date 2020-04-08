@@ -143,28 +143,35 @@ namespace Common.Guards
             }
         }
 
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void Higher(this IGuardClause guardClause, DateTime input, string parameterName, DateTime otherInput)
+        public static void Higher(this IGuardClause guardClause, DateTime input, DateTime otherInput, string paramNameInput, string paramNameOther)
         {
-            Higher<DateTime>(guardClause, input, parameterName, otherInput);
+            if (DateTime.Compare(input, otherInput) <= 0)
+            {
+                throw new ArgumentException($"{paramNameInput} should be higher than {paramNameOther}");
+            }
+        }
+        public static void HigherOrEquals(this IGuardClause guardClause, DateTime input, DateTime otherInput, string paramNameInput, string paramNameOther)
+        {
+            if (DateTime.Compare(input, otherInput) < 0)
+            {
+                throw new ArgumentException($"{paramNameInput} should be higher or equals than {paramNameOther}");
+            }
         }
 
-        private static void Higher<T>(this IGuardClause guardClause, T input, string parameterName, T otherInput)
+        public static void Higher<T>(this IGuardClause guardClause, T input, T otherInput, string paramNameInput, string paramNameOther)
         {
-            Comparer<T> comparer = Comparer<T>.Default;
-
+            var comparer = Comparer<T>.Default;
             if (comparer.Compare(input, otherInput) <= 0)
             {
-                throw new ArgumentException($"{nameof(input)} should be less than {nameof(otherInput)}");
+                throw new ArgumentException($"{paramNameInput} should be higher than {paramNameOther}");
+            }
+        }
+        public static void HigherOrEquals<T>(this IGuardClause guardClause, T input, T otherInput, string paramNameInput, string paramNameOther)
+        {
+            var comparer = Comparer<T>.Default;
+            if (comparer.Compare(input, otherInput) < 0)
+            {
+                throw new ArgumentException($"{paramNameInput} should be higher or equals than {paramNameOther}");
             }
         }
 

@@ -5,8 +5,9 @@ using Domain.Entities;
 using Domain.Contracts;
 using DTO;
 using Common.Functional;
-using Business.Contracts;
 using Business.Features.Event;
+using Business.Config.Validation;
+using Microsoft.Extensions.Configuration;
 
 namespace Business
 {
@@ -14,16 +15,18 @@ namespace Business
     {
         private IEventRepository repository;
         private IValidator validator;
+        private IConfiguration configuration;
 
-        public EventService(IEventRepository repository, IValidator validator)
+        public EventService(IEventRepository repository, IValidator validator, IConfiguration configuration)
         {
             this.repository = repository;
             this.validator = validator;
+            this.configuration = configuration;
         }
 
         public int Add(DtoEventBasicRequest dtoEvent)
         {
-            validator.Validate(new EventValidation(dtoEvent));
+            validator.Validate(new EventValidation(dtoEvent, configuration));
             var eventData = new Event
             {
                 Name = dtoEvent.Name,
@@ -36,13 +39,14 @@ namespace Business
 
         public Result Delete(int id)
         {
+            validator.Validate(new DeleteEventValidator(id));
             var result = this.repository.Delete(id);
             return result;
         }
 
         public Result<int> Put(DtoEventRequest eventModel)
         {
-            validator.Validate(new PutEventValidator(eventModel));
+            validator.Validate(new PutEventValidator(eventModel, configuration));
             var eventData = new Event
             {
                 Id = eventModel.Id,

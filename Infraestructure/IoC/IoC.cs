@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Database.Implementations;
 using Domain.Contracts;
 using Business;
-using Business.Contracts;
+using Business.Config.Validation;
 
 namespace Infraestructure
 {

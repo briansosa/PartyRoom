@@ -53,7 +53,6 @@ namespace Web.Controllers
         [HttpDelete]
         public ActionResult Delete([FromBody] DtoEventRequest dtoEvent)
         {
-            Guard.Against.Zero(dtoEvent.Id, nameof(dtoEvent.Id));
             var result = eventService.Delete(dtoEvent.Id);
             if (result.IsSuccess) return Ok();
             else return BadRequest(result.ErrorMessage);

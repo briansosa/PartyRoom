@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Business.Contracts
+namespace Business.Config.Validation
 {
     public interface IValidator
     {
         void Validate(IValidatorModel validatorModel);
-    }
-
-    public interface IValidatorModel
-    {
-        void ValidateModel();
     }
 
     public class Validator : IValidator

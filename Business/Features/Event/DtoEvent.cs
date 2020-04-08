@@ -14,6 +14,8 @@ namespace DTO
         public string Name { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateFinish { get; set; }
+        public TimeSpan Duration => DateFinish.Subtract(DateStart);
+
     }
     public class DtoEventRequest : DtoEventBasicRequest
     {
