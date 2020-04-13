@@ -43,7 +43,7 @@ namespace Business
                 int id = this.repository.Add(eventData);
                 return Result.SuccessWithReturnValue(id);
             }
-            return Result.FailWithDefaultReturnValue<int>("There is no place available between those dates");
+            return Result.FailWithDefaultReturnValue<int>("There is no place available between those dates.");
         }
 
         public Result Delete(int id)
