@@ -35,10 +35,11 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public int Post([FromBody] DtoEventBasicRequest dtoEvent)
+        public ActionResult Post([FromBody] DtoEventBasicRequest dtoEvent)
         {
-            int id = eventService.Add(dtoEvent);
-            return id;
+            var result = eventService.Add(dtoEvent);
+            if (result.IsSuccess) return Ok(result.Value);
+            else return BadRequest(result.ErrorMessage);
         }
 
         [HttpPut]
