@@ -13,10 +13,10 @@ namespace Business.Features.Event
         private DtoEventBasicRequest eventModel;
         private IConfigurationSection configuration;
 
-        public EventValidation(DtoEventBasicRequest eventModel, IConfiguration configuration)
+        public EventValidation(DtoEventBasicRequest eventModel, IConfigurationSection configuration)
         {
             this.eventModel = eventModel;
-            this.configuration = configuration.GetSection("EventValidation");
+            this.configuration = configuration;
         }
 
         public void ValidateModel()
@@ -44,7 +44,7 @@ namespace Business.Features.Event
     {
         private DtoEventRequest eventModel;
         private EventValidation basicEventModel;
-        public PutEventValidator(DtoEventRequest eventModel, IConfiguration configuration)
+        public PutEventValidator(DtoEventRequest eventModel, IConfigurationSection configuration)
         {
             this.eventModel = eventModel;
             this.basicEventModel = new EventValidation(eventModel, configuration);
