@@ -8,12 +8,13 @@ using Business;
 using DTO;
 using Common.Guards;
 using Common.Functional;
+using Web.Features;
 
 namespace Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EventController : ControllerBase
+    public class EventController : BaseController
     {
         private readonly ILogger<EventController> _logger;
         private IEventService eventService;
@@ -28,35 +29,28 @@ namespace Web.Controllers
         public ActionResult Get()
         {
             var result = eventService.Get();
-            if (result.IsSuccess) return Ok(result.Value);
-            else return BadRequest(result.ErrorMessage);
-
-
+            return Result(result);
         }
 
         [HttpPost]
         public ActionResult Post([FromBody] DtoEventBasicRequest dtoEvent)
         {
             var result = eventService.Add(dtoEvent);
-            if (result.IsSuccess) return Ok(result.Value);
-            else return BadRequest(result.ErrorMessage);
+            return Result(result);
         }
 
         [HttpPut]
         public ActionResult Put([FromBody] DtoEventRequest dtoEvent)
         {
             var result = eventService.Put(dtoEvent);
-            if (result.IsSuccess) return Ok(result.Value);
-            else return BadRequest(result.ErrorMessage);
-
+            return Result(result);
         }
 
         [HttpDelete]
         public ActionResult Delete([FromBody] DtoEventRequest dtoEvent)
         {
             var result = eventService.Delete(dtoEvent.Id);
-            if (result.IsSuccess) return Ok();
-            else return BadRequest(result.ErrorMessage);
+            return Result(result);
         }
     }
 }
